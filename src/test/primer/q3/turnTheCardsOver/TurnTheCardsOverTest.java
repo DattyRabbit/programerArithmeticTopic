@@ -13,8 +13,8 @@ import cn.dattyrabbit.programerArithmeticTopic.primer.q3.turnTheCardsOver.TurnTh
 public class TurnTheCardsOverTest {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        TurnTheCardsOver turnTheCardsOver = new TurnTheCardsOver(100);
-        turnTheCardsOver.turnOver();
+        TurnTheCardsOver turnTheCardsOver = new TurnTheCardsOver(9999);
+        turnTheCardsOver.turnOverByAuthor();
         long end = System.currentTimeMillis();
         System.out.println("总共用时：" + (end-start) +"ms");
     }

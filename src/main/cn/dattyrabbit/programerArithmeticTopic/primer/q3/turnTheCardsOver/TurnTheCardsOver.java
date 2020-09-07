@@ -68,7 +68,26 @@ public class TurnTheCardsOver {
                 System.out.print( i + 1 + " " );
             }
         }
+        //输出打印换行
+        System.out.println();
 
+    }
+
+    /**
+     * 模拟作者的写法，验证得出实际上此写法有问题
+     */
+    public void turnOverByAuthor(){
+        for(int i = 1; i <= cards.length; i++){
+            boolean flag = false;
+            for(int j = 1; j <= cards.length; j++){
+                if(i % j == 0){
+                    flag = !flag;
+                }
+            }
+            if(flag){
+                System.out.println(i);
+            }
+        }
     }
 
 }
