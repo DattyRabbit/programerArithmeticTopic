@@ -54,7 +54,7 @@ public class TurnTheCardsOver {
         //遍历操作，按照规则进行翻牌
         //执行遍历多轮翻牌
         for(int i = 2; i <= cards.length; i++){
-            //执行单轮的翻牌操作，遍历该次需要进行操作的数组内元素，进行亦或操作模拟翻牌动作
+            //执行单轮的翻牌操作，遍历该次需要进行操作的数组内元素，进行异或操作模拟翻牌动作
             for(int j = i-1; j < cards.length; j+=i){
                 cards[j] = cards[j]^1;
             }
