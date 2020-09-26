@@ -33,8 +33,13 @@ import java.util.Collections;
  *  ┕→ 500、100、100、100、100、50、10、10、10、10、10
  *
  * @description "现在还用现金支付吗"解题实现
- *                思路：将能兑换出的硬币面额数字用数组保存，待兑换的面额作为参数传入，用一个方法遍历硬币面额数组，分别求出入参
- *                对面额作除法操作的结果也使用一个数组保存，然后进行一个嵌套遍历。用~~~~~
+ *                思路：将能兑换出的硬币面额数字用数组保存，待兑换的面额作为参数传入，
+ *                使用递归方法，将待兑换的数值和可用来兑换的数组以及允许兑换的次数作为参数
+ *                进行传递，递归方法中会取可兑换面额的首位，将其从原数组中取出，然后进行判断
+ *                如果可兑换的数组为空，则用当前兑换的币值和待兑换的面值作除法，结果如果小于等于
+ *                允许的最大兑币个数，则满足。如果可兑换数组仍有数，则从0到待兑换面额除以当前兑换的币值结果来遍历，遍历中
+ *                递归调用本方法，参数为待兑换的币值 - 当前兑换的币值 * 遍历数作为下次的待兑换币值，剩下的可兑换的硬币面额数组
+ *                作为下次的可兑换数组，然后允许的最大兑换个数 - 当前遍历数作为下次的允许的最大兑换数量。
  *
  * @version V1.0
  * @Package: cn.dattyrabbit.programerArithmeticTopic.primer.q5.cashPay
@@ -69,8 +74,8 @@ public class CashPayment {
      */
     public void exchangeCash(int banknotes, ArrayList<Integer> denominations, int max, int[] exchangeCoinGroup){
        //获得当前使用的兑换币面额
-        int coin = denominations.get(0);
-        denominations.remove(0);
+        int coin = denominations.remove(0);
+
         //保存当前需要操作的面额数组的下标
         int currentIndex = coinDenominations.length - 1 - denominations.size();
         if(denominations.isEmpty()){
