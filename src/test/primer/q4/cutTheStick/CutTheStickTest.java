@@ -16,6 +16,7 @@ public class CutTheStickTest {
         CutTheStick cutTheStick = new CutTheStick();
         cutTheStick.cutTheStick(1,20,3);
         cutTheStick.cutTheStick(1,100,5);
+        cutTheStick.cutTheStick(1,50000000,8000);
         long end = System.currentTimeMillis();
         System.out.println("总共用时：" + (end-start) +"ms");
     }
