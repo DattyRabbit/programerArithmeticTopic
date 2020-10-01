@@ -33,13 +33,13 @@ import java.util.Collections;
  *  ┕→ 500、100、100、100、100、50、10、10、10、10、10
  *
  * @description "现在还用现金支付吗"解题实现
- *                思路：将能兑换出的硬币面额数字用数组保存，待兑换的面额作为参数传入，
+ *                思路：
  *                使用递归方法，将待兑换的数值和可用来兑换的数组以及允许兑换的次数作为参数
  *                进行传递，递归方法中会取可兑换面额的首位，将其从原数组中取出，然后进行判断
  *                如果可兑换的数组为空，则用当前兑换的币值和待兑换的面值作除法，结果如果小于等于
  *                允许的最大兑币个数，则满足。如果可兑换数组仍有数，则从0到待兑换面额除以当前兑换的币值结果来遍历，遍历中
- *                递归调用本方法，参数为待兑换的币值 - 当前兑换的币值 * 遍历数作为下次的待兑换币值，剩下的可兑换的硬币面额数组
- *                作为下次的可兑换数组，然后允许的最大兑换个数 - 当前遍历数作为下次的允许的最大兑换数量。
+ *                递归调用本方法，参数为 待兑换的币值 - 当前兑换的币值 * 遍历数 作为下次的待兑换币值，剩下的可兑换的硬币面额数组
+ *                作为下次的可兑换数组，然后 允许的最大兑换个数 - 当前遍历数 作为下次的允许的最大兑换数量。
  *
  * @version V1.0
  * @Package: cn.dattyrabbit.programerArithmeticTopic.primer.q5.cashPay
@@ -49,9 +49,23 @@ import java.util.Collections;
 public class CashPayment {
 
     //硬币面额数组
-    private Integer[] coinDenominations = {500,100,50,10};
+    private Integer[] coinDenominations;
     //能兑换的总组合数
     private int exchangeGroupCount = 0;
+    //能够允许的最大兑换硬币个数默认15
+    private int maxCoinCount = 15;
+
+    //默认构造方法，初始化硬币面额值为固定500,100,50,10
+    public CashPayment(){
+        coinDenominations = new Integer[]{500,100,50,10};
+    }
+
+    //带参构造方法，传入硬币面额值的数组，和允许最大兑换的硬币个数
+    public CashPayment(Integer[] coinDenominations,int maxCoinCount){
+        this.coinDenominations = coinDenominations;
+        this.maxCoinCount = maxCoinCount;
+    }
+
 
     /**
      * 获得待兑换的纸币总共能有多少总兑换组合。
@@ -60,10 +74,11 @@ public class CashPayment {
     public void execute(int banknotes){
         ArrayList<Integer> denominations = new ArrayList<>();
         Collections.addAll(denominations, coinDenominations);
-        //暂时保存兑换时各个硬币面额的数量
+        String str_coinDenominations = denominations.toString();
+        //创建一个数组用于暂时保存兑换时各个硬币面额的数量
         int[] exchangeCoinGroup = new int[coinDenominations.length];
-        exchangeCash(banknotes, denominations, 15, exchangeCoinGroup);
-        System.out.println("兑换"+banknotes+"面值的纸币，有"+exchangeGroupCount+"种兑换结果");
+        exchangeCash(banknotes, denominations, maxCoinCount, exchangeCoinGroup);
+        System.out.println("使用"+str_coinDenominations+"硬币面额，在允许最多兑换硬币个数为:"+maxCoinCount+"个时，兑换"+banknotes+"面值的纸币，有以上"+exchangeGroupCount+"种兑换结果");
     }
 
     /**
@@ -85,7 +100,7 @@ public class CashPayment {
                 exchangeCoinGroup[currentIndex] = banknotes / coin;
                 //输出组合，总组合数+1
                 exchangeGroupCount += 1;
-                //TODO 输出打印单次的兑换结果
+                //输出打印单次的兑换结果
                 System.out.print("兑换组合可以为：");
                 for(int i = 0; i < coinDenominations.length; i++){
                     System.out.print(exchangeCoinGroup[i]+"个"+coinDenominations[i]+"元硬币 ");
